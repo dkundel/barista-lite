@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import Orders from './data/orders';
 import OrderEntry from './components/OrderEntry';
 
 class App extends Component {
@@ -8,6 +9,15 @@ class App extends Component {
     super(props, ctx);
     this.finishOrder.bind(this);
     this.cancelOrder.bind(this);
+    this.orderService = Orders.shared();
+    this.state = {
+      orders: []
+    };
+  }
+
+  async componentWillMount() {
+    const orders = await this.orderService.init();
+    this.setState({ orders });
   }
 
   finishOrder(orderNumber) {
@@ -23,13 +33,15 @@ class App extends Component {
       <div role="main">
         <h1>Barista</h1>
         <div className="order-list">
-          <OrderEntry
-            orderNumber={0}
-            onCancel={this.cancelOrder}
-            onFinished={this.finishOrder}
-          >
-            Hello
-          </OrderEntry>
+          {this.state.orders.map(entry => (
+            <OrderEntry
+              orderNumber={entry.number}
+              onCancel={this.cancelOrder}
+              onFinished={this.finishOrder}
+            >
+              {entry.order}
+            </OrderEntry>
+          ))}
         </div>
       </div>
     );
