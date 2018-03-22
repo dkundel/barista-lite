@@ -7,9 +7,11 @@ import OrderEntry from './components/OrderEntry';
 class App extends Component {
   constructor(props, ctx) {
     super(props, ctx);
-    this.finishOrder.bind(this);
-    this.cancelOrder.bind(this);
+    this.finishOrder = this.finishOrder.bind(this);
+    this.cancelOrder = this.cancelOrder.bind(this);
+    this.updateOrders = this.updateOrders.bind(this);
     this.orderService = Orders.shared();
+    this.orderService.on('updated', this.updateOrders);
     this.state = {
       orders: []
     };
@@ -17,6 +19,10 @@ class App extends Component {
 
   async componentWillMount() {
     const orders = await this.orderService.init();
+    this.setState({ orders });
+  }
+
+  updateOrders({ orders }) {
     this.setState({ orders });
   }
 
