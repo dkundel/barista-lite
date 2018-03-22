@@ -35,6 +35,7 @@ class App extends Component {
         <div className="order-list">
           {this.state.orders.map(entry => (
             <OrderEntry
+              key={entry.number}
               orderNumber={entry.number}
               onCancel={this.cancelOrder}
               onFinished={this.finishOrder}
