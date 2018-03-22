@@ -26,12 +26,12 @@ class App extends Component {
     this.setState({ orders });
   }
 
-  finishOrder(orderNumber) {
-    console.log('Finish');
+  finishOrder(order) {
+    this.orderService.updateStatus(order, 'finished');
   }
 
-  cancelOrder(orderNumber) {
-    console.log('Cancel');
+  cancelOrder(order) {
+    this.orderService.updateStatus(order, 'cancelled');
   }
 
   render() {
@@ -43,8 +43,8 @@ class App extends Component {
             <OrderEntry
               key={entry.number}
               orderNumber={entry.number}
-              onCancel={this.cancelOrder}
-              onFinished={this.finishOrder}
+              onCancel={() => this.cancelOrder(entry)}
+              onFinished={() => this.finishOrder(entry)}
             >
               {entry.order}
             </OrderEntry>

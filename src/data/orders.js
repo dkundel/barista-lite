@@ -36,6 +36,13 @@ export default class Orders extends EventEmitter {
     return this.orders;
   }
 
+  async updateStatus(order, status) {
+    const idx = this.orders.findIndex(item => item.number === order.number);
+    this.orders[idx] = { ...order, status };
+    this.emit('updated', { orders: this.orders });
+    return this.orderList.update(order.number, { status });
+  }
+
   async fetchOrders() {
     const page = await this.orderList.getItems({ pageSize: 1000 });
     return page.items.map(this.convertItemToOrder);
