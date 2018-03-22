@@ -1,0 +1,20 @@
+.order-entry {
+  display: flex;
+  max-width: 800px;
+  padding: 20px;
+  padding-bottom: 0;
+  margin-bottom: 10px;
+  border-left: 5px solid #9b4dca;
+}
+
+.order-entry p {
+  margin: 0;
+}
+
+.order-details {
+  flex: 1;
+}
+
+.order-options {
+  width: 150px;
+}
