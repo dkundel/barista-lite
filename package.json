@@ -8,7 +8,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.1.1",
-    "twilio-sync": "^0.7.4"
+    "twilio-sync": "^3.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
